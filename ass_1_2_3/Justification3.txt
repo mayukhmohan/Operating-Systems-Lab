@@ -1,0 +1,35 @@
+We have three C files and three executable files assignment3, foo and coo. File assignment3 has the code of changing the modes of the files. In root user mayukh we have written the code in assigment of changing modes and in foo and coo we have written codes to check
+	1. User ID
+	2. Effective User ID
+	3. Group ID
+	4. Effecctive Group ID
+ 
+Now evrything is ready in root user mayukh. We have compiled and executed assignment3.c after executing foo.c and coo.c. Subsequently the file permissions looks like this
+ 
+-rwsr-xr-x foo
+-rwxr-sr-x coo
+
+User id bit is set id foo executable and Group id bit is set in coo executable.
+Now we created user1 separately and logged into his system.
+
+OWNER USER ID = 1000
+OWNER GROUP ID = 1000
+USER1 USER ID = 1001
+USER1 GROUP ID = 1001
+
+
+when we ran foo we got
+
+REAL UserID = 1001
+Effective UseID = 1000
+REAL GroupID = 1001
+EFFECTIVE GroupID = 1001
+
+
+REAL UserID = 1001
+Effective UseID = 1001
+REAL GroupID = 1001
+EFFECTIVE GroupID = 1000
+
+when foo was being executed by user1 then it was looking for owner user ID as set user bit was on so effective userid of user1 was changed to 1000 which belongs to owner's user id.
+when coo was being executed by user1 then it was looking for owner group ID as set group bit was on so effective groupid of user1 was changed to 1000 which belongs to owner's group id.

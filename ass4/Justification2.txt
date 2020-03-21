@@ -1,0 +1,25 @@
+Q1:> Can P2 read from the file "foo.txt" using fd?
+ANS:> Yes, it can read using fd because after forking parent and child process has the same copied address space, but file permission has not been changed yet so no problem of reading for other processes.
+
+
+Q2:> If P2 can read from "foo.txt" then from which position in the file will it read?
+ANS:> If P1 process starts reading the file foo.txt; after completing, P2 will start reading foo.txt from the location where fd stopped in P1 process. It's exactly (as in, exactly literally) the same as 	 two processes reading from the same file. File table contains offset value of that file that tells a file decriptor from where to start reading so we get continous reading like we are reading using 	  same file descriptor.
+
+Q3:> If P1 and P2 both attempt to read from "foo.txt" then what will they read?
+ANS:> It will be also same like before, but as here two process are concurrrently running we don't know  which process will read from the file first, say p1, then after reading of p1, p2 will start     	reading from there onwards reason same before.
+
+Q4:> If P1 closes the file (close()) does it get closed for P2 as well?
+ANS:> P2 inherits a copy of the file descriptor as fork supports address space copying totally. So closing the descriptor in the P1 will close it for the P1 itself only, but not the P2, file descriptor 	for P2 will be there intact in file descriptor table and vice versa.
+
+Q5:> Can P2 write into the file "foo.txt" using fd?
+ANS:> Yes, it can write using fd because after forking parent and child process has the same copied address space, but file permission has not been changed yet so no problem of writing for other processes.
+
+Q6:> If P2 can write into "foo.txt" then at which position in the file "foo.txt" will it write?
+ANS:> If P1 process starts writing the file foo.txt; after completing, P2 will start writing foo.txt from the location where fd stopped in P1 process. It's exactly (as in, exactly literally) the same as 	 two processes writing into the same file. File table contains offset value of that file that tells a file decriptor from where to start writing so we get continous writing like we are writing using 	  same file descriptor.
+
+Q7:> If P1 and P2 both attempt into the file "foo.txt" then what will be written in the file?
+ANS:> It will be also same like before, but as here two process are concurrrently running we don't know  which process will write from the file first, say p1, then after writing of p1, p2 will start     	writing from there onwards reason same before.
+
+Q8:> If P1 closes the file (close()) does it get closed for P2 as well?
+ANS:> P2 inherits a copy of the file descriptor as fork supports address space copying totally. So closing the descriptor in the P1 will close it for the P1 itself only, but not the P2, file descriptor 	for P2 will be there intact in file descriptor table and vice versa.
+
